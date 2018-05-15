@@ -1,25 +1,38 @@
 <div class="layout-column layout-align-start-center">
-  {{#paper-card as |card|}}
-    {{#card.title}}
-      <div class="layout-row layout-align-start-center">
-        <img class="photographer-img" src={{photographer.profile_image.small}} />
-        {{photographer.name}}
-      </div>
-    {{/card.title}}
 
-    {{#card.content}}
-      <img class="main-img" src={{photoUrl}} />
-    {{/card.content}}
+  {{#infinite-scroller use-document=true scroll-debounce="100" trigger-at="100%" on-load-more=(action getPhotos) as |scroller|}}
 
-    {{#card.actions}}
-      <div class="layout-row layout-align-end-center">
-        ❤️ {{pluralize likes "like"}}
+    {{#each photos as |photo|}}
+      <div class="pad">
+        {{#paper-card as |card|}}
+          <div class="fade-in">
+            {{#card.title}}
+              <div class="layout-row layout-align-start-center">
+                <img class="photographer-img" src={{photo.photographer.profile_image.small}} />
+                {{photo.photographer.name}}
+              </div>
+            {{/card.title}}
+
+            {{#card.content}}
+              <img class="main-img" src={{photo.photoUrl}} />
+            {{/card.content}}
+
+            {{#card.actions}}
+              <div class="layout-row layout-align-end-center">
+                ❤️ {{pluralize photo.likes "like"}}
+              </div>
+            {{/card.actions}}
+          </div>
+        {{/paper-card}}
       </div>
-    {{/card.actions}}
-  {{/paper-card}}
-  {{paper-button
-    label="Get a photo!"
-    raised=true
-    onClick=(action getPhoto)
-  }}
+    {{/each}}
+
+    {{#if scroller.isLoading}}
+      <div class="layout-column layout-align-space-around-center">
+          {{paper-progress-circular accent=true class="md-hue-3" diameter=40}} Loading...
+      </div>
+    {{/if}}
+
+  {{/infinite-scroller}}
+
 </div>

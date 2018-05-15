@@ -40,6 +40,7 @@
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-paper": "^1.0.0-beta.4",
     "ember-resolver": "^4.0.0",
+    "ember-simple-infinite-scroller": "^1.0.12",
     "ember-source": "~3.1.0",
     "eslint-plugin-ember": "^5.0.0",
     "loader.js": "^4.2.3",
@@ -47,5 +48,8 @@
   },
   "engines": {
     "node": "^4.5 || 6.* || >= 7.*"
+  },
+  "dependencies": {
+    "lodash": "^4.17.10"
   }
 }

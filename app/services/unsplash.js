@@ -17,10 +17,9 @@ export default Service.extend({
     set(this, 'unsplash', unsplash);
   },
 
-  async getRandomPhoto() {
-    let res = await get(this, 'unsplash').photos.getRandomPhoto()
-    let json = await res.json()
-
+  async getPhotos(currentPage) {
+    let res = await get(this, 'unsplash').photos.listPhotos(currentPage, 2, "latest");
+    let json = await res.json();
     return json;
   }
 });
